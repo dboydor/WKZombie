@@ -83,34 +83,34 @@ internal class Renderer {
         /// webview will be added to the view hierarchy (between the 
         /// rootViewController's view and the key window.
         /// Until there's no better solution, we'll have to roll with this.
-        dispatch_sync_on_main_thread {
-            let warning = "The keyWindow or contentView is missing."
-            #if os(iOS)
-                let bounds = UIScreen.main.bounds
-                self.webView = WKWebView(frame: bounds, configuration: config)
-                if let window = UIApplication.shared.keyWindow {
-                    self.webView.alpha = 0.01
-                    window.insertSubview(self.webView, at: 0)
-                } else {
-                    Logger.log(warning)
-                }
-            #elseif os(OSX)
-                self.webView = WKWebView(frame: CGRect.zero, configuration: config)
-                if let window = NSApplication.shared.keyWindow, let view = window.contentView {
-                    self.webView.frame = CGRect(origin: CGPoint.zero, size: view.frame.size)
-                    self.webView.alphaValue = 0.01
-                    view.addSubview(self.webView)
-                } else {
-                    Logger.log(warning)
-                }
-            #endif
-        }
+        // dispatch_sync_on_main_thread {
+        //     let warning = "The keyWindow or contentView is missing."
+        //     #if os(iOS)
+        //         let bounds = UIScreen.main.bounds
+        //         self.webView = WKWebView(frame: bounds, configuration: config)
+        //         if let window = UIApplication.shared.keyWindow {
+        //             self.webView.alpha = 0.01
+        //             window.insertSubview(self.webView, at: 0)
+        //         } else {
+        //             Logger.log(warning)
+        //         }
+        //     #elseif os(OSX)
+        //         self.webView = WKWebView(frame: CGRect.zero, configuration: config)
+        //         if let window = NSApplication.shared.keyWindow, let view = window.contentView {
+        //             self.webView.frame = CGRect(origin: CGPoint.zero, size: view.frame.size)
+        //             self.webView.alphaValue = 0.01
+        //             view.addSubview(self.webView)
+        //         } else {
+        //             Logger.log(warning)
+        //         }
+        //     #endif
+        // }
     }
-    
+
     deinit {
-        dispatch_sync_on_main_thread {
-            self.webView.removeFromSuperview()
-        }
+//        dispatch_sync_on_main_thread {
+//            self.webView.removeFromSuperview()
+//        }
     }
         
     //========================================
