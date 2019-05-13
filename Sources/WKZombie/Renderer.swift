@@ -28,7 +28,7 @@ import WebKit
 typealias RenderCompletion = (_ result : Any?, _ response: URLResponse?, _ error: Error?) -> Void
 
 internal class Renderer {
-    
+
     var loadMediaContent : Bool = true
 
     @available(OSX 10.11, *)
@@ -40,34 +40,34 @@ internal class Renderer {
             self.webView.customUserAgent = newValue
         }
     }
-    
+
     var timeoutInSeconds : TimeInterval = 30.0
-    
+
     var showNetworkActivity : Bool = true
-    
+
     internal static let scrapingCommand = "document.documentElement.outerHTML"
-    
+
     internal var authenticationHandler : AuthenticationHandler?
-    
+
     fileprivate var renderQueue : OperationQueue = {
         let instance = OperationQueue()
         instance.maxConcurrentOperationCount = 1
         instance.qualityOfService = .userInitiated
        return instance
     }()
-    
+
     fileprivate var webView : WKWebView!
-    
-    
+
+
     init(processPool: WKProcessPool? = nil) {
         let doneLoadingWithoutMediaContentScript = "window.webkit.messageHandlers.doneLoading.postMessage(\(Renderer.scrapingCommand));"
         let doneLoadingUserScript = WKUserScript(source: doneLoadingWithoutMediaContentScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        
+
         let getElementByXPathScript = "function getElementByXpath(path) { " +
                                       "   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; " +
                                       "}"
         let getElementUserScript = WKUserScript(source: getElementByXPathScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-        
+
         let contentController = WKUserContentController()
         contentController.addUserScript(doneLoadingUserScript)
         contentController.addUserScript(getElementUserScript)
@@ -75,12 +75,13 @@ internal class Renderer {
         let config = WKWebViewConfiguration()
         config.processPool = processPool ?? WKProcessPool()
         config.userContentController = contentController
-        
+        config.suppressesIncrementalRendering = true
+
         /// Note: The WKWebView behaves very unreliable when rendering offscreen
-        /// on a device. This is especially true with JavaScript, which simply 
+        /// on a device. This is especially true with JavaScript, which simply
         /// won't be executed sometimes.
         /// Therefore, I decided to add this very ugly hack where the rendering
-        /// webview will be added to the view hierarchy (between the 
+        /// webview will be added to the view hierarchy (between the
         /// rootViewController's view and the key window.
         /// Until there's no better solution, we'll have to roll with this.
          dispatch_sync_on_main_thread {
@@ -96,6 +97,11 @@ internal class Renderer {
 //                 }
              #elseif os(OSX)
                  self.webView = WKWebView(frame: CGRect.zero, configuration: config)
+                 // Avoids sqlite3 errors about closed file descriptor
+                 // on localstorage writing.  This is because localstorage is outside of
+                 // the sandbox, and new version of XCode now see that access and close the
+                 // the file handle while the sqlite3 transactions are in-process.
+                 self.webView?.configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
 //                 if let window = NSApplication.shared.keyWindow, let view = window.contentView {
 //                     self.webView.frame = CGRect(origin: CGPoint.zero, size: view.frame.size)
 //                     self.webView.alphaValue = 0.01
@@ -112,11 +118,11 @@ internal class Renderer {
 //            self.webView.removeFromSuperview()
 //        }
     }
-        
+
     //========================================
     // MARK: Render Page
     //========================================
-    
+
     internal func renderPageWithRequest(_ request: URLRequest, postAction: PostAction = .none, completionHandler: @escaping RenderCompletion) {
         let requestBlock : (_ operation: RenderOperation?) -> Void = { operation in
             DispatchQueue.main.async {
@@ -135,12 +141,12 @@ internal class Renderer {
         operation.name = "Request".uppercased() + "\n\(request.url?.absoluteString ?? String())"
         renderQueue.addOperation(operation)
     }
-    
-    
+
+
     //========================================
     // MARK: Execute JavaScript
     //========================================
-    
+
     internal func executeScript(_ script: String, willLoadPage: Bool? = false, postAction: PostAction = .none, completionHandler: RenderCompletion?) {
         var requestBlock : RequestBlock
         if let willLoadPage = willLoadPage , willLoadPage == true {
@@ -166,11 +172,11 @@ internal class Renderer {
         operation.name = "Script".uppercased() + "\n\(script )"
         renderQueue.addOperation(operation)
     }
-    
+
     //========================================
     // MARK: Helper Methods
     //========================================
-    
+
     fileprivate func operationWithRequestBlock(_ requestBlock: @escaping (_ operation: RenderOperation) -> Void, postAction: PostAction = .none, completionHandler: RenderCompletion?) -> Operation {
         let operation = RenderOperation(webView: webView, timeoutInSeconds: timeoutInSeconds)
         operation.loadMediaContent = loadMediaContent
@@ -183,7 +189,7 @@ internal class Renderer {
         operation.authenticationBlock = authenticationHandler
         return operation
     }
-    
+
     internal func currentContent(_ completionHandler: @escaping RenderCompletion) {
         webView.evaluateJavaScript(Renderer.scrapingCommand.terminate()) { result, error in
             var data : Data?
@@ -193,7 +199,7 @@ internal class Renderer {
             completionHandler(data as AnyObject?, nil, error as Error?)
         }
     }
-    
+
 }
 
 //========================================
