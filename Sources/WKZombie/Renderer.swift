@@ -77,6 +77,12 @@ internal class Renderer {
         config.userContentController = contentController
         config.suppressesIncrementalRendering = true
 
+        // Avoids sqlite3 errors about closed file descriptor
+        // on localstorage writing.  This is because localstorage is outside of
+        // the sandbox, and new version of XCode now sees that access and closes the
+        // the file handle while the sqlite3 transactions are in-process.
+        config.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+
         /// Note: The WKWebView behaves very unreliable when rendering offscreen
         /// on a device. This is especially true with JavaScript, which simply
         /// won't be executed sometimes.
@@ -97,11 +103,6 @@ internal class Renderer {
 //                 }
              #elseif os(OSX)
                  self.webView = WKWebView(frame: CGRect.zero, configuration: config)
-                 // Avoids sqlite3 errors about closed file descriptor
-                 // on localstorage writing.  This is because localstorage is outside of
-                 // the sandbox, and new version of XCode now see that access and close the
-                 // the file handle while the sqlite3 transactions are in-process.
-                 self.webView?.configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
 //                 if let window = NSApplication.shared.keyWindow, let view = window.contentView {
 //                     self.webView.frame = CGRect(origin: CGPoint.zero, size: view.frame.size)
 //                     self.webView.alphaValue = 0.01
