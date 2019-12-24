@@ -123,7 +123,6 @@ internal class Renderer {
         // This post says this might fix things:
         //  https://stackoverflow.com/questions/35529080/wkwebview-crashes-on-deinit
         self.webView.navigationDelegate = nil
-        self.webView.scrollView.delegate = nil
     }
 
     //========================================
