@@ -91,7 +91,7 @@ internal class Renderer {
         /// rootViewController's view and the key window.
         /// Until there's no better solution, we'll have to roll with this.
          dispatch_sync_on_main_thread {
-             let warning = "The keyWindow or contentView is missing."
+//             let warning = "The keyWindow or contentView is missing."
              #if os(iOS)
                  let bounds = UIScreen.main.bounds
                  self.webView = WKWebView(frame: bounds, configuration: config)

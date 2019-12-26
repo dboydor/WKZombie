@@ -85,7 +85,7 @@ public enum Result<T> {
 }
 
 public extension Result where T:Collection {
-    public func first<A>() -> Result<A> {
+    func first<A>() -> Result<A> {
         switch self {
         case .success(let result): return resultFromOptional(result.first as? A, error: .notFound)
         case .error(let error): return resultFromOptional(nil, error: error)
@@ -281,7 +281,7 @@ public struct Action<T> {
 }
 
 public extension Action {
-    public func map<U>(_ f: @escaping (T) -> U) -> Action<U> {
+    func map<U>(_ f: @escaping (T) -> U) -> Action<U> {
         return Action<U>(operation: { completion in
             self.start { result in
                 DispatchQueue.main.async(execute: {
@@ -294,7 +294,7 @@ public extension Action {
         })
     }
     
-    public func flatMap<U>(_ f: @escaping (T) -> U?) -> Action<U> {
+    func flatMap<U>(_ f: @escaping (T) -> U?) -> Action<U> {
         return Action<U>(operation: { completion in
             self.start { result in
                 DispatchQueue.main.async(execute: {
@@ -312,7 +312,7 @@ public extension Action {
         })
     }
     
-    public func andThen<U>(_ f: @escaping (T) -> Action<U>) -> Action<U> {
+    func andThen<U>(_ f: @escaping (T) -> Action<U>) -> Action<U> {
         return Action<U>(operation: { completion in
             self.start { firstFutureResult in
                 switch firstFutureResult {
