@@ -122,7 +122,9 @@ internal class Renderer {
         // Encountered exeption in WKWebView on deinit().
         // This post says this might fix things:
         //  https://stackoverflow.com/questions/35529080/wkwebview-crashes-on-deinit
-        self.webView.navigationDelegate = nil
+        DispatchQueue.main.sync {
+            self.webView.navigationDelegate = nil
+        }
     }
 
     //========================================
