@@ -103,6 +103,18 @@ internal class Renderer {
 //                 }
              #elseif os(OSX)
                  self.webView = WKWebView(frame: CGRect.zero, configuration: config)
+            
+                // Debugging code to show window of actual browser session
+//                let rect = CGRect(x: 0, y: 0, width: 600, height: 1000)
+//                self.webView = WKWebView(frame: rect, configuration: config)
+//                let window = NSWindow(contentRect: rect, styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView], backing: .buffered, defer: false)
+//                //window.center()
+//                window.setFrameAutosaveName(NSWindow.FrameAutosaveName(rawValue: "WKZombie"))
+//                window.contentView?.addSubview(self.webView)
+//                let delegate = NSApplication.shared.delegate!
+//                window.orderFront(delegate)
+//                window.makeKeyAndOrderFront(delegate)
+
 //                 if let window = NSApplication.shared.keyWindow, let view = window.contentView {
 //                     self.webView.frame = CGRect(origin: CGPoint.zero, size: view.frame.size)
 //                     self.webView.alphaValue = 0.01
