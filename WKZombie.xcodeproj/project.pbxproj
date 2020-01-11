@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271B269E23CA5ABA003C04AC /* SwiftTryCatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 271B269C23CA5ABA003C04AC /* SwiftTryCatch.h */; };
+		271B269F23CA5ABA003C04AC /* SwiftTryCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 271B269D23CA5ABA003C04AC /* SwiftTryCatch.m */; };
 		BF1F91641CB6AF9300A58A7F /* WKZombie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAECCAC1CB69C0200C87F3B /* WKZombie.framework */; };
 		BF1F919A1CB6DC6E00A58A7F /* WKZombie.h in Headers */ = {isa = PBXBuildFile; fileRef = BF1F91981CB6DC6E00A58A7F /* WKZombie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF1F919B1CB6DC8000A58A7F /* WKZombie.h in Headers */ = {isa = PBXBuildFile; fileRef = BF1F91981CB6DC6E00A58A7F /* WKZombie.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		271B269C23CA5ABA003C04AC /* SwiftTryCatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftTryCatch.h; path = ../../../../../Downloads/SwiftTryCatch.h; sourceTree = "<group>"; };
+		271B269D23CA5ABA003C04AC /* SwiftTryCatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwiftTryCatch.m; path = ../../../../../Downloads/SwiftTryCatch.m; sourceTree = "<group>"; };
 		BF1F91351CB6A5FB00A58A7F /* Hpple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hpple.framework; path = "Carthage/Checkouts/hpple/Framework/build/Debug-iphoneos/Hpple.framework"; sourceTree = "<group>"; };
 		BF1F915F1CB6AF9300A58A7F /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1F916D1CB6AFAF00A58A7F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Resources/Tests/Info.plist; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 				BF2B33A51D90759E004E6621 /* RenderOperation.swift */,
 				BF2B33A61D90759E004E6621 /* Snapshot.swift */,
 				BF2B33A71D90759E004E6621 /* WKZombie.swift */,
+				271B269C23CA5ABA003C04AC /* SwiftTryCatch.h */,
+				271B269D23CA5ABA003C04AC /* SwiftTryCatch.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -306,6 +312,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				271B269E23CA5ABA003C04AC /* SwiftTryCatch.h in Headers */,
 				BF1F919A1CB6DC6E00A58A7F /* WKZombie.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,7 +418,7 @@
 					};
 					BFAECCAB1CB69C0200C87F3B = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -420,6 +427,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -521,6 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				271B269F23CA5ABA003C04AC /* SwiftTryCatch.m in Sources */,
 				BF2B33A91D90759E004E6621 /* Definitions.swift in Sources */,
 				BF2B33B01D90759E004E6621 /* HTMLFrame.swift in Sources */,
 				BF2B33AD1D90759E004E6621 /* HTMLElement.swift in Sources */,
