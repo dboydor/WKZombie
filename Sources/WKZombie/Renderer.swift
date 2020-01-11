@@ -130,10 +130,17 @@ internal class Renderer {
         dispatch_sync_on_main_thread {
             // self.webView.removeFromSuperview()
             
-            // Encountered exeption in WKWebView on deinit().
-            // This post says this might fix things:
-            // https://stackoverflow.com/questions/35529080/wkwebview-crashes-on-deinit
-            self.webView.navigationDelegate = nil
+            SwiftTryCatch.try({
+                // Encountered exeption in WKWebView on deinit().
+                // This post says this might fix things:
+                // https://stackoverflow.com/questions/35529080/wkwebview-crashes-on-deinit
+                self.webView.navigationDelegate = nil
+                self.webView = nil
+            }, catch: { (error) in
+                print("\(error.description)")
+            }, finally: {
+                // close resources
+            })
         }
     }
 
