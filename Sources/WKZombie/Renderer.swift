@@ -24,7 +24,6 @@
 import Foundation
 import WebKit
 
-
 typealias RenderCompletion = (_ result : Any?, _ response: URLResponse?, _ error: Error?) -> Void
 
 internal class Renderer {
@@ -130,15 +129,15 @@ internal class Renderer {
         dispatch_sync_on_main_thread {
             // self.webView.removeFromSuperview()
             
-            SwiftTryCatch.try({
+            SwiftTryCatch.tryRun({
                 // Encountered exeption in WKWebView on deinit().
                 // This post says this might fix things:
                 // https://stackoverflow.com/questions/35529080/wkwebview-crashes-on-deinit
                 self.webView.navigationDelegate = nil
                 self.webView = nil
-            }, catch: { (error) in
-                print("\(error.description)")
-            }, finally: {
+            }, catchRun: { (error) in
+                print("\(error?.description)")
+            }, finallyRun: {
                 // close resources
             })
         }

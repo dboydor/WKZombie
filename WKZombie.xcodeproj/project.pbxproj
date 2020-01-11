@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		271B26A223CA5D67003C04AC /* SwiftTryCatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 271B26A023CA5D67003C04AC /* SwiftTryCatch.h */; };
+		271B26A223CA5D67003C04AC /* SwiftTryCatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 271B26A023CA5D67003C04AC /* SwiftTryCatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		271B26A323CA5D67003C04AC /* SwiftTryCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 271B26A123CA5D67003C04AC /* SwiftTryCatch.m */; };
-		271B26A523CA5ED9003C04AC /* WKZombie-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 271B26A423CA5ED9003C04AC /* WKZombie-Bridging-Header.h */; };
 		BF1F91641CB6AF9300A58A7F /* WKZombie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAECCAC1CB69C0200C87F3B /* WKZombie.framework */; };
 		BF1F919A1CB6DC6E00A58A7F /* WKZombie.h in Headers */ = {isa = PBXBuildFile; fileRef = BF1F91981CB6DC6E00A58A7F /* WKZombie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF1F919B1CB6DC8000A58A7F /* WKZombie.h in Headers */ = {isa = PBXBuildFile; fileRef = BF1F91981CB6DC6E00A58A7F /* WKZombie.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,7 +86,6 @@
 /* Begin PBXFileReference section */
 		271B26A023CA5D67003C04AC /* SwiftTryCatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftTryCatch.h; path = ../../../../../Downloads/SwiftTryCatch.h; sourceTree = "<group>"; };
 		271B26A123CA5D67003C04AC /* SwiftTryCatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwiftTryCatch.m; path = ../../../../../Downloads/SwiftTryCatch.m; sourceTree = "<group>"; };
-		271B26A423CA5ED9003C04AC /* WKZombie-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKZombie-Bridging-Header.h"; sourceTree = "<group>"; };
 		BF1F91351CB6A5FB00A58A7F /* Hpple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hpple.framework; path = "Carthage/Checkouts/hpple/Framework/build/Debug-iphoneos/Hpple.framework"; sourceTree = "<group>"; };
 		BF1F915F1CB6AF9300A58A7F /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1F916D1CB6AFAF00A58A7F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Resources/Tests/Info.plist; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 				BF2B33A51D90759E004E6621 /* RenderOperation.swift */,
 				BF2B33A61D90759E004E6621 /* Snapshot.swift */,
 				BF2B33A71D90759E004E6621 /* WKZombie.swift */,
-				271B26A423CA5ED9003C04AC /* WKZombie-Bridging-Header.h */,
 				271B26A023CA5D67003C04AC /* SwiftTryCatch.h */,
 				271B26A123CA5D67003C04AC /* SwiftTryCatch.m */,
 			);
@@ -315,7 +312,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				271B26A523CA5ED9003C04AC /* WKZombie-Bridging-Header.h in Headers */,
 				271B26A223CA5D67003C04AC /* SwiftTryCatch.h in Headers */,
 				BF1F919A1CB6DC6E00A58A7F /* WKZombie.h in Headers */,
 			);
@@ -633,6 +629,7 @@
 				PRODUCT_NAME = WKZombie;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -660,6 +657,7 @@
 				PRODUCT_NAME = WKZombie;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -674,6 +672,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.mathiaskoehnke.HostApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FuckMe/WKZombie-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -690,6 +690,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.mathiaskoehnke.HostApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FuckMe/WKZombie-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -746,7 +748,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "./Sources/WKZombie-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -797,7 +801,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "./Sources/WKZombie-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
