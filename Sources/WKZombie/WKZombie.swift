@@ -109,7 +109,7 @@ public class WKZombie {
      
      - returns: A WKZombie instance.
      */
-    public init(name: String? = "WKZombie", processPool: WKProcessPool? = nil, enableJavascript: enableJavascript = true) {
+    public init(name: String? = "WKZombie", processPool: WKProcessPool? = nil, enableJavascript: Bool = true) {
         self.name = name
         self._renderer = Renderer(processPool: processPool, enableJavascript: enableJavascript)
         self._fetcher = ContentFetcher()
