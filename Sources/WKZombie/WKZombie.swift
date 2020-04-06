@@ -55,6 +55,15 @@ public class WKZombie {
         }
     }
     
+    public var enableJavascript : Bool {
+        get {
+            return _renderer.enableJavascript
+        }
+        set {
+            _renderer.enableJavascript = newValue
+        }
+    }
+    
     /// The custom user agent string or nil if no custom user agent string has been set.
     @available(OSX 10.11, *)
     public var userAgent : String? {
@@ -109,9 +118,9 @@ public class WKZombie {
      
      - returns: A WKZombie instance.
      */
-    public init(name: String? = "WKZombie", processPool: WKProcessPool? = nil, enableJavascript: Bool = true) {
+    public init(name: String? = "WKZombie", processPool: WKProcessPool? = nil) {
         self.name = name
-        self._renderer = Renderer(processPool: processPool, enableJavascript: enableJavascript)
+        self._renderer = Renderer(processPool: processPool)
         self._fetcher = ContentFetcher()
     }
     

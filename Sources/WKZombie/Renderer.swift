@@ -30,6 +30,15 @@ internal class Renderer {
 
     var loadMediaContent : Bool = true
 
+    var enableJavascript : Bool {
+        get {
+            return self.webView.configuration.preferences.javaScriptEnabled
+        }
+        set {
+            self.webView.configuration.preferences.javaScriptEnabled = newValue
+        }
+    }
+
     @available(OSX 10.11, *)
     var userAgent : String? {
         get {
@@ -39,7 +48,7 @@ internal class Renderer {
             self.webView.customUserAgent = newValue
         }
     }
-
+    
     var timeoutInSeconds : TimeInterval = 30.0
 
     var showNetworkActivity : Bool = true
@@ -58,16 +67,12 @@ internal class Renderer {
     fileprivate var webView : WKWebView!
 
 
-    init(processPool: WKProcessPool? = nil, enableJavascript: Bool) {
+    init(processPool: WKProcessPool? = nil) {
         let config = WKWebViewConfiguration()
         config.processPool = processPool ?? WKProcessPool()
         config.userContentController = WKUserContentController()
         config.suppressesIncrementalRendering = true
-        if !enableJavascript {
-            let preferences = WKPreferences()
-            preferences.javaScriptEnabled = false
-            config.preferences = preferences
-        }
+        config.preferences = WKPreferences()
 
         // Avoids sqlite3 errors about closed file descriptor
         // on localstorage writing.  This is because localstorage is outside of
