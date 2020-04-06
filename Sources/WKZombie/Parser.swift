@@ -108,14 +108,6 @@ public class HTMLParserElement : CustomStringConvertible {
         return element?.object(forKey: key.lowercased()) as String?
     }
     
-    public func childrenWithTagName<T: HTMLElement>(_ tagName: String) -> [T]? {
-        return element?.children(withTagName: tagName).compactMap { T(element: $0 as AnyObject) }
-    }
-    
-    public func children<T: HTMLElement>() -> [T]? {
-        return element?.children.compactMap { T(element:$0 as AnyObject) }
-    }
-    
     public func hasChildren() -> Bool {
         return element?.hasChildren() ?? false
     }

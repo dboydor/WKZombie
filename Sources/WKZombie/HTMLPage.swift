@@ -44,16 +44,4 @@ public class HTMLPage : HTMLParser, Page {
         }
         return nil
     }
-    
-    //========================================
-    // MARK: Find Elements
-    //========================================
-    
-    public func findElements<T>(_ searchType: SearchType<T>) -> Result<[T]> {
-        let query = searchType.xPathQuery()
-        if let parsedObjects = searchWithXPathQuery(query) , parsedObjects.count > 0 {
-            return resultFromOptional(parsedObjects.compactMap { T(element: $0, XPathQuery: query) }, error: .notFound)
-        }
-        return Result.error(.notFound)
-    }
 }

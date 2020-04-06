@@ -23,50 +23,6 @@
 
 import Foundation
 
-
-public enum SearchType<T: HTMLElement> {
-    /**
-     * Returns an element that matches the specified id.
-     */
-    case id(String)
-    /**
-     * Returns all elements matching the specified value for their name attribute.
-     */
-    case name(String)
-    /**
-     * Returns all elements with inner content, that contain the specified text.
-     */
-    case text(String)
-    /**
-     * Returns all elements that match the specified class name.
-     */
-    case `class`(String)
-    /**
-     Returns all elements that match the specified attribute name/value combination.
-     */
-    case attribute(String, String)
-    /**
-     Returns all elements with an attribute containing the specified value.
-     */
-    case contains(String, String)
-    /**
-     Returns all elements that match the specified XPath query.
-     */
-    case XPathQuery(String)
-    
-    func xPathQuery() -> String {
-        switch self {
-        case .text(let value): return T.createXPathQuery("[contains(text(),'\(value)')]")
-        case .id(let id): return T.createXPathQuery("[@id='\(id)']")
-        case .name(let name): return T.createXPathQuery("[@name='\(name)']")
-        case .attribute(let key, let value): return T.createXPathQuery("[@\(key)='\(value)']")
-        case .class(let className): return T.createXPathQuery("[@class='\(className)']")
-        case .contains(let key, let value): return T.createXPathQuery("[contains(@\(key), '\(value)')]")
-        case .XPathQuery(let query): return query
-        }
-    }
-}
-
 //========================================
 // MARK: Result
 //========================================

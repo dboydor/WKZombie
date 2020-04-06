@@ -58,23 +58,16 @@ internal class Renderer {
     fileprivate var webView : WKWebView!
 
 
-    init(processPool: WKProcessPool? = nil) {
-        let doneLoadingWithoutMediaContentScript = "window.webkit.messageHandlers.doneLoading.postMessage(\(Renderer.scrapingCommand));"
-        let doneLoadingUserScript = WKUserScript(source: doneLoadingWithoutMediaContentScript, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-
-        let getElementByXPathScript = "function getElementByXpath(path) { " +
-                                      "   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; " +
-                                      "}"
-        let getElementUserScript = WKUserScript(source: getElementByXPathScript, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-
-        let contentController = WKUserContentController()
-        contentController.addUserScript(doneLoadingUserScript)
-        contentController.addUserScript(getElementUserScript)
-
+    init(processPool: WKProcessPool? = nil, enableJavascript: Bool) {
         let config = WKWebViewConfiguration()
         config.processPool = processPool ?? WKProcessPool()
-        config.userContentController = contentController
+        config.userContentController = WKUserContentController()
         config.suppressesIncrementalRendering = true
+        if !enableJavascript {
+            let preferences = WKPreferences()
+            preferences.javaScriptEnabled = false
+            config.preferences = preferences
+        }
 
         // Avoids sqlite3 errors about closed file descriptor
         // on localstorage writing.  This is because localstorage is outside of
