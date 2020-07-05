@@ -160,6 +160,7 @@ internal class RenderOperation : Operation {
 
     fileprivate func setupReferences() {
         dispatch_sync_on_main_thread {
+            webView?.configuration.userContentController.add(self, name: "doneLoading")
             webView?.navigationDelegate = self
         }
     }
@@ -167,8 +168,29 @@ internal class RenderOperation : Operation {
     fileprivate func cleanupReferences() {
         dispatch_sync_on_main_thread {
             webView?.navigationDelegate = nil
+            webView?.configuration.userContentController.removeScriptMessageHandler(forName: "doneLoading")
             webView = nil
             authenticationBlock = nil
+        }
+    }
+}
+
+//========================================
+// MARK: WKScriptMessageHandler
+//========================================
+
+extension RenderOperation : WKScriptMessageHandler {
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        //None of the content loaded after this point is necessary (images, videos, etc.)
+        if let webView = message.webView {
+            if message.name == "doneLoading" && loadMediaContent == false {
+                if let url = webView.url , response == nil {
+                    response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+                }
+                webView.stopLoading()
+                self.webView(webView, didFinish: nil)
+            }
         }
     }
 }
