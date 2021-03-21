@@ -67,7 +67,7 @@ internal class Renderer {
     fileprivate var webView : WKWebView!
 
 
-    init(debugWindow: bool, processPool: WKProcessPool? = nil) {
+    init(debugWindow: Bool, processPool: WKProcessPool? = nil) {
         let config = WKWebViewConfiguration()
         config.processPool = processPool ?? WKProcessPool()
         config.userContentController = WKUserContentController()

@@ -118,7 +118,7 @@ public class WKZombie {
      
      - returns: A WKZombie instance.
      */
-    public init(name: String? = "WKZombie", debugWindow: bool = false, processPool: WKProcessPool? = nil) {
+    public init(name: String? = "WKZombie", debugWindow: Bool = false, processPool: WKProcessPool? = nil) {
         self.name = name
         self._renderer = Renderer(debugWindow: debugWindow, processPool: processPool)
         self._fetcher = ContentFetcher()
