@@ -64,15 +64,6 @@ public class WKZombie {
         }
     }
 
-    public var debugWindow : Bool {
-        get {
-            return _renderer.debugWindow
-        }
-        set {
-            _renderer.debugWindow = newValue
-        }
-    }
-
     /// The custom user agent string or nil if no custom user agent string has been set.
     @available(OSX 10.11, *)
     public var userAgent : String? {
@@ -127,9 +118,9 @@ public class WKZombie {
      
      - returns: A WKZombie instance.
      */
-    public init(name: String? = "WKZombie", processPool: WKProcessPool? = nil) {
+    public init(name: String? = "WKZombie", debugWindow: bool = false, processPool: WKProcessPool? = nil) {
         self.name = name
-        self._renderer = Renderer(processPool: processPool)
+        self._renderer = Renderer(debugWindow: debugWindow, processPool: processPool)
         self._fetcher = ContentFetcher()
     }
     

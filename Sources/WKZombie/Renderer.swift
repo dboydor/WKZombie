@@ -29,7 +29,6 @@ typealias RenderCompletion = (_ result : Any?, _ response: URLResponse?, _ error
 internal class Renderer {
 
     var loadMediaContent : Bool = true
-    var debugWindow: Bool = false
 
     var enableJavascript : Bool {
         get {
@@ -68,7 +67,7 @@ internal class Renderer {
     fileprivate var webView : WKWebView!
 
 
-    init(processPool: WKProcessPool? = nil) {
+    init(debugWindow: bool, processPool: WKProcessPool? = nil) {
         let config = WKWebViewConfiguration()
         config.processPool = processPool ?? WKProcessPool()
         config.userContentController = WKUserContentController()
@@ -100,10 +99,10 @@ internal class Renderer {
 //                     Logger.log(warning)
 //                 }
              #elseif os(OSX)
-                 self.webView = WKWebView(frame: CGRect.zero, configuration: config)
+                self.webView = WKWebView(frame: CGRect.zero, configuration: config)
             
                 // Debugging code to show window of actual browser session
-                if (self.debugWindow) {
+                if (debugWindow) {
                     let rect = CGRect(x: 0, y: 0, width: 600, height: 1000)
                     self.webView = WKWebView(frame: rect, configuration: config)
                     let window = NSWindow(contentRect: rect, styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView], backing: .buffered, defer: false)
