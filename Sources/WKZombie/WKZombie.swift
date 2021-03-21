@@ -63,7 +63,16 @@ public class WKZombie {
             _renderer.enableJavascript = newValue
         }
     }
-    
+
+    public var debugWindow : Bool {
+        get {
+            return _renderer.debugWindow
+        }
+        set {
+            _renderer.debugWindow = newValue
+        }
+    }
+
     /// The custom user agent string or nil if no custom user agent string has been set.
     @available(OSX 10.11, *)
     public var userAgent : String? {
