@@ -119,7 +119,7 @@ internal class Renderer {
                          self.webView.alphaValue = 1
                          view.addSubview(self.webView)
                      } else {
-                         Logger.log(warning)
+                         //Logger.log(warning)
                      }
                 }
              #endif
